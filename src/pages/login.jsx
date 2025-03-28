@@ -1,4 +1,17 @@
+import { useState, useContext } from "react"
+import { AuthContext } from "../context/authContext"
+
 const Login = () => {
+  const[email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isAuthentificated, handleLogin] = useContext(AuthContext)
+
+
+    const submitLogin = (e) => {
+        console.log("Form login submit !")
+        handleLogin(e, email, password)
+      }
+
     return(
         <>
         <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -7,13 +20,13 @@ const Login = () => {
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form class="space-y-6">
+          <form onSubmit={submitLogin} class="space-y-6">
 
             <div>
               <label for="email" class="block text-sm/6 font-medium text-gray-900">Adresse email</label>
               <div class="mt-2">
                 <input type="email" name="email" id="email" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" 
-                />
+                onChange={e => setEmail(e.target.value)}/>
               </div>
             </div>
       
@@ -23,7 +36,7 @@ const Login = () => {
               </div>
               <div class="mt-2">
                 <input type="password" name="password" id="password" autocomplete="current-password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" 
-                />
+                onChange={e => setPassword(e.target.value)}/>
               </div>
             </div>
       
