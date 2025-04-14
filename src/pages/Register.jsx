@@ -1,8 +1,13 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import { AuthContext } from "../context/authContext"
 
 const Register = () => {
   let navigate = useNavigate()
+
+  const {setIsAuthenticated} = useContext(AuthContext)
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -14,9 +19,10 @@ const Register = () => {
 
 
     try{
-      const newUser = await axios.post('http://localhost:8000/api/register', {first_name: firstName, last_name: lastName, email, password})
+      const newUser = await axios.post('http://localhost:8000/api/register', {first_Name: firstName, last_Name: lastName, email, password})
       if(newUser.status === 201){
         alert(newUser.data.message)
+        setIsAuthenticated(true)
         navigate('/')
       }
     }
@@ -82,7 +88,7 @@ const Register = () => {
       
           <p class="mt-10 text-center text-sm/6 text-gray-500">
             Vous avez deja un compte ?
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500"> Connectez-vous</a>
+            <a href="/login" class="font-semibold text-indigo-600 hover:text-indigo-500"> Connectez-vous</a>
           </p>
         </div>
       </div>

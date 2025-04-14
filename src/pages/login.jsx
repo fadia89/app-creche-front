@@ -4,13 +4,13 @@ import { AuthContext } from "../context/authContext"
 const Login = () => {
   const[email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [isAuthentificated, handleLogin] = useContext(AuthContext)
 
+  const {handleLogin} = useContext(AuthContext)
 
-    const submitLogin = (e) => {
-        console.log("Form login submit !")
-        handleLogin(e, email, password)
-      }
+    // const submitLogin = (e) => {
+    //     console.log("Form login submit !")
+    //     handleLogin(e, email, password)
+    //   }
 
     return(
         <>
@@ -20,7 +20,7 @@ const Login = () => {
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={submitLogin} class="space-y-6">
+          <form onSubmit={e => handleLogin(e, email, password)} class="space-y-6">
 
             <div>
               <label for="email" class="block text-sm/6 font-medium text-gray-900">Adresse email</label>
@@ -47,7 +47,7 @@ const Login = () => {
       
           <p class="mt-10 text-center text-sm/6 text-gray-500">
             Pas encore de compte ?
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500"> Inscrivez-vous</a>
+            <a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500"> Inscrivez-vous</a>
           </p>
         </div>
       </div>
