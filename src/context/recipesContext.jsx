@@ -11,7 +11,7 @@ export const RecipesController = ({children}) => {
     const fetchRecipes = async () => {
     
     try{
-        const response = await axios.get('http://localhost:8000/api/recipes')
+        const response = await axios.get('http://localhost:5000/api/recipes')
         // console.log(response)
         if(response.status === 200){
             setRecipes(response.data)

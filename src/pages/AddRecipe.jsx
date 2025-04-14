@@ -31,7 +31,7 @@ const AddRecipe = () => {
     e.preventDefault() 
 
     try{
-      const newRecipe = await axios.post('http://localhost:8000/api/recipes', {title,description,ingredients,instructions,preparation_Time,cooking_Time,servings,category,createdAt,user_Id})
+      const newRecipe = await axios.post('http://localhost:5000/api/recipes', infoRecipe)
       console.log(newRecipe)
       if(newRecipe.status === 201){
         alert(newRecipe.data.message)

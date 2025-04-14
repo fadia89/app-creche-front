@@ -19,7 +19,7 @@ const Register = () => {
 
 
     try{
-      const newUser = await axios.post('http://localhost:8000/api/register', {first_Name: firstName, last_Name: lastName, email, password})
+      const newUser = await axios.post('http://localhost:5000/api/register', {first_Name: firstName, last_Name: lastName, email, password})
       if(newUser.status === 201){
         alert(newUser.data.message)
         setIsAuthenticated(true)
