@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { RecipesContext } from "../context/recipesContext";
 import { FaClock, FaUser, FaUtensils } from "react-icons/fa"; // Icônes FontAwesome
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const  [recipes, loading, error] = useContext(RecipesContext);
+  const  {recipes, loading, error} = useContext(RecipesContext);
 
   // if (loading) return <p className="text-center text-lg text-indigo-600">Chargement des recettes...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
