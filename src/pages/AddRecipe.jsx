@@ -31,7 +31,7 @@ const AddRecipe = () => {
     e.preventDefault() 
 
     try{
-      const newRecipe = await axios.post('http://localhost:8000/api/recipes', {title,description,ingredients,instructions,preparation_Time,cooking_Time,servings,category,createdAt,user_Id})
+      const newRecipe = await axios.post('http://localhost:8000/api/recipes', infoRecipe)
       console.log(newRecipe)
       if(newRecipe.status === 201){
         alert(newRecipe.data.message)
@@ -97,7 +97,7 @@ const AddRecipe = () => {
               <input
                 type="text"
                 name="ingredient_name"
-                placeholder="Nom de l'ingrédient"
+                placeholder="Nom des ingrédients"
                 className="block w-1/2 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
                 onChange={(e) => setinfoRecipe({...infoRecipe,ingredients : e.target.value})}
               />
@@ -115,9 +115,6 @@ const AddRecipe = () => {
               /> */}
             </div>
           </div>
-          <button type="button" className="mt-2 text-indigo-600 hover:text-indigo-500">
-                  Ajouter un ingrédient
-          </button>
         </div>
             
 
@@ -130,15 +127,12 @@ const AddRecipe = () => {
               <input
                 type="text"
                 name="instruction"
-                placeholder="Instruction"
+                placeholder="Instructions"
                 className="block w-3/4 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
                 onChange={(e) => setinfoRecipe({...infoRecipe,instructions : e.target.value})}
               />
             </div>
           </div>
-          <button type="button" className="mt-2 text-indigo-600 hover:text-indigo-500">
-                  Ajouter une instruction
-          </button>
         </div>
 
         <div>
