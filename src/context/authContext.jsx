@@ -12,19 +12,29 @@ export const AuthController = ({ children }) => {
 
 
   useEffect(() => {
-    let token = localStorage.getItem('token')
-    if(token){
-      setIsAuthenticated(true)
-      setTokenStorage(token)
+    setLoading(true)
+    const token = localStorage.getItem('token')
+    try{
+      if(token){
+        setIsAuthenticated(true)
+        setTokenStorage(token)  // On met à jour le token dans le state
+       
+      }
+    } catch (err){
+      console.error('Error accessing localStroge')
+
+    }
+    finally{
       setLoading(false)
     }
+    
   }, [])
 
   const handleLogout = () => {
     try{
         localStorage.removeItem('token');
         setIsAuthenticated(false);
-        navigate('/');
+        navigate('/login');
 
     } catch (err){
         console.log(err);

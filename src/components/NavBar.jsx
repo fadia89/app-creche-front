@@ -36,12 +36,17 @@ const NavBar = () => {
                     Ajouter
                   </Link>
                 </li>
-              <li>
-                <Link
+              <li
+                
                   onClick={handleLogout}  // On appelle handleLogout au clic
-                  className="hover:bg-indigo-500 px-3 py-2 rounded-md text-lg font-medium"
-                >
+                  className="hover:bg-indigo-500 px-3 py-2 rounded-md text-lg font-medium">
+                
                   Logout
+                
+              </li>
+              <li>
+                <Link to="/profile" className="hover:bg-indigo-500 px-3 py-2 rounded-md text-lg font-medium">
+                  Profile
                 </Link>
               </li>
             </>

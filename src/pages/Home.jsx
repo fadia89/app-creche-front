@@ -2,9 +2,13 @@ import { useContext } from "react";
 import { RecipesContext } from "../context/recipesContext";
 import { FaClock, FaUser, FaUtensils } from "react-icons/fa"; // Icônes FontAwesome
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  
   const  {recipes, loading, error} = useContext(RecipesContext);
+  
+
 
   // if (loading) return <p className="text-center text-lg text-indigo-600">Chargement des recettes...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
@@ -16,8 +20,11 @@ const Home = () => {
       </h1>
 
       <div className="flex justify-center flex-wrap p-7 m-7">
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+       
           {recipes.map((recipe) => (
+             <Link to={`/recipe/${recipe._id}`}>
             <div key={recipe._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <h2 className="text-xl font-bold text-gray-800 mb-2">{recipe.title}</h2>
               <p className="text-gray-600 mb-2">{recipe.description}</p>
@@ -43,6 +50,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </Link>
           ))}
         </div>
       </div>
