@@ -32,7 +32,7 @@ export const RecipesController = ({children}) => {
 
 
     return(
-        <RecipesContext.Provider value={[recipes, setRecipes]}>
+        <RecipesContext.Provider value={{recipes, setRecipes, fetchRecipes}}>
             {!loading && children}
         </RecipesContext.Provider>
     )

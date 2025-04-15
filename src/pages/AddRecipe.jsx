@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
+import { RecipesContext } from "../context/recipesContext";
 
 const AddRecipe = () => {
   let navigate = useNavigate()
-  const {isAuthenticated} = useContext(AuthContext)
+  const {isAuthenticated, tokenStorage} = useContext(AuthContext)
+  const {fetchRecipes} = useContext(RecipesContext)
 
   useEffect(() => {
     if(!isAuthenticated){
@@ -21,9 +23,7 @@ const AddRecipe = () => {
       preparation_Time : '',
       cooking_Time : '',
       servings : '',
-      category : '',
-      createdAt : '',
-      user_Id : ''
+      category : 'Entrée',
     });
     
 
@@ -31,11 +31,14 @@ const AddRecipe = () => {
     e.preventDefault() 
 
     try{
-      const newRecipe = await axios.post('http://localhost:5000/api/recipes', infoRecipe)
+      const newRecipe = await axios.post('http://localhost:5000/api/recipes', infoRecipe,{
+        headers: {
+            'Authorization' : `Bearer ${tokenStorage}`
+        }
+    })
       console.log(newRecipe)
       if(newRecipe.status === 201){
-        alert(newRecipe.data.message)
-        setIsAuthenticated(true)
+        alert(newRecipe.data)
         navigate('/')
       }
     }
@@ -44,6 +47,9 @@ const AddRecipe = () => {
       if(err){
         alert(err)
       }
+    }
+    finally{
+      fetchRecipes()
     }
   }
 
@@ -97,22 +103,12 @@ const AddRecipe = () => {
               <input
                 type="text"
                 name="ingredient_name"
+                id="ingredients"
+                required
                 placeholder="Nom des ingrédients"
                 className="block w-1/2 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
                 onChange={(e) => setinfoRecipe({...infoRecipe,ingredients : e.target.value})}
               />
-              {/* <input
-                type="text"
-                name="ingredient_quantity"
-                placeholder="Quantité"
-                className="block w-1/2 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
-                onChange={(e) =>
-                  setinfoRecipe({
-                    ...infoRecipe,
-                    ingredients: [{ ...infoRecipe.ingredients[1], quantity: e.target.value }],
-                  })
-                }
-              /> */}
             </div>
           </div>
         </div>
@@ -127,6 +123,7 @@ const AddRecipe = () => {
               <input
                 type="text"
                 name="instruction"
+                id="instructions"
                 placeholder="Instructions"
                 className="block w-3/4 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
                 onChange={(e) => setinfoRecipe({...infoRecipe,instructions : e.target.value})}
@@ -142,7 +139,7 @@ const AddRecipe = () => {
           <input
             type="text"
             name="preparationTime"
-            id="preparationTime"
+            id="preparation_Time"
             required
             className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
             onChange={(e) => setinfoRecipe({...infoRecipe,preparation_Time : e.target.value})}
@@ -156,7 +153,7 @@ const AddRecipe = () => {
           <input
             type="number"
             name="cookingTime"
-            id="cookingTime"
+            id="cooking_Time"
             required
             className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
             onChange={(e) => setinfoRecipe({...infoRecipe,cooking_Time : e.target.value})}

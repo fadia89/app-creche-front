@@ -7,12 +7,16 @@ export const AuthContext = createContext()
 export const AuthController = ({ children }) => {
   let navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [tokenStorage, setTokenStorage] = useState(null)
 
 
   useEffect(() => {
     let token = localStorage.getItem('token')
     if(token){
       setIsAuthenticated(true)
+      setTokenStorage(token)
+      setLoading(false)
     }
   }, [])
 
@@ -48,7 +52,7 @@ export const AuthController = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, handleLogin, handleLogout}}>
+    <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated, handleLogin, handleLogout, tokenStorage}}>
       {children}
     </AuthContext.Provider>
   )
