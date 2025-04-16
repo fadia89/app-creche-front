@@ -50,6 +50,7 @@ export const AuthController = ({ children }) => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
         setIsAuthenticated(true);
+        setTokenStorage(response.data.token)
         alert("Connexion réussie !");
         navigate('/'); 
       } else {

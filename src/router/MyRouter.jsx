@@ -7,6 +7,9 @@ import AddRecipe from "../pages/AddRecipe";
 import RecipeDetails from "../pages/RecipeDetails";
 import Profile from "../pages/Profile";
 import ProtectedRoute from "../../utils/ProtectedRoute";
+import Users from "../pages/Users";
+import UserDetails from "../pages/UserDetails";
+
 
 const MyRouter = () => {
   return (
@@ -24,9 +27,13 @@ const MyRouter = () => {
         <Route path='/profile' element={
           <ProtectedRoute>
             <Profile />
+           {/*  <EditProfile /> */}
           </ProtectedRoute>
         } />
+        
         <Route path='/recipe/:id' element={<RecipeDetails />} />
+        <Route path='/users' element={<Users />} />
+        <Route path='/user/:id' element={<UserDetails />} />
         <Route path='*' element={<h1>Page introuvable</h1>} />
       </Routes>
     </>

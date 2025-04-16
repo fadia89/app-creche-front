@@ -40,34 +40,52 @@ const RecipeDetails= () => {
       fetchRecipeByID()
     }, []);
     return (
-      <div className="p-6">
+      <div className="p-8 max-w-3xl mx-auto bg-white rounded-2xl shadow-xl mt-12">
         {recipe ? (
           <>
-            <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
-            <p className="mb-2">{recipe.description}</p>
-            <p><strong>Ingrédients :</strong> {recipe.ingredients}</p>
-            <p><strong>Instructions :</strong> {recipe.instructions}</p>
-            <p><strong>Catégorie :</strong> {recipe.category}</p>
-            
-            <div>
-              <strong>Étapes :</strong>
-              <ul>
-                {recipe.step && recipe.step.length > 0 ? (
-                  recipe.step.map((step, index) => (
-                    <li key={index}>{step}</li> 
-                  ))
-                ) : (
-                  <p>Aucune étape définie.</p> 
-                )}
-              </ul>
+            <h1 className="text-4xl font-extrabold mb-6 text-indigo-700 text-center">
+              {recipe.title}
+            </h1>
+    
+            {recipe.image && (
+              <img
+                src={`http://localhost:5000${recipe.image}`}
+                alt={recipe.title}
+                className="w-full h-auto rounded-xl shadow-md mb-6 transition-transform duration-300 ease-in-out hover:scale-105"
+              />
+            )}
+    
+            <div className="space-y-4 text-gray-800 text-lg leading-relaxed">
+              <p>
+                <span className="font-semibold text-indigo-600">Description :</span>{" "}
+                {recipe.description}
+              </p>
+    
+              <p>
+                <span className="font-semibold text-indigo-600">Ingrédients :</span>{" "}
+                {recipe.ingredients}
+              </p>
+    
+              <p>
+                <span className="font-semibold text-indigo-600">Instructions :</span>{" "}
+                {recipe.instructions}
+              </p>
+    
+              <p>
+                <span className="font-semibold text-indigo-600">Catégorie :</span>{" "}
+                {recipe.category}
+              </p>
+    
+              
+              
             </div>
           </>
         ) : (
-          <p>Recette non trouvée.</p> 
+          <p className="text-red-500 text-center text-xl">Recette non trouvée.</p>
         )}
       </div>
     );
     
-};
+  }   
 
 export default RecipeDetails

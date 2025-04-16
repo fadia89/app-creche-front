@@ -4,6 +4,7 @@ import { AuthContext } from "../context/authContext";
 import axios from "axios";
 import { RecipesContext } from "../context/recipesContext";
 
+
 const AddRecipe = () => {
   let navigate = useNavigate()
   const {isAuthenticated, tokenStorage} = useContext(AuthContext)
@@ -24,22 +25,35 @@ const AddRecipe = () => {
       cooking_Time : '',
       servings : '',
       category : 'Entrée',
+    
     });
+    const [image, setImage] = useState(null)
     
 
   const handleAddRecipe = async (e) => {
     e.preventDefault() 
+    const formData = new FormData()
+    for (let key in infoRecipe) {
+      formData.append(key, infoRecipe[key]);
+    }
+  
+    // Ajout du fichier image si disponible
+    if (image) {
+      formData.append('image', image); 
+    }
+  
 
     try{
-      const newRecipe = await axios.post('http://localhost:5000/api/recipes', infoRecipe,{
+      const newRecipe = await axios.post('http://localhost:5000/api/recipes', formData, {
         headers: {
-            'Authorization' : `Bearer ${tokenStorage}`
+            'Authorization' : `Bearer ${tokenStorage}`,
+            'Content-Type': 'multipart/form-data'
         }
     })
       console.log(newRecipe)
       if(newRecipe.status === 201){
-        alert(newRecipe.data)
-        navigate('/')
+        alert(newRecipe.data.message)
+        navigate(`/recipe/${newRecipe.data.newRecipe._id}`);
       }
     }
     catch(err){
@@ -75,6 +89,7 @@ const AddRecipe = () => {
               required
               className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
               onChange={(e) => setinfoRecipe({...infoRecipe,title : e.target.value})}
+             
             />
           </div>
         </div>
@@ -189,6 +204,19 @@ const AddRecipe = () => {
             <option value="Plat principal">Plat principal</option>
             <option value="Dessert">Dessert</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="image" className="block text-sm font-medium text-gray-900">
+            Recipe picture
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+           
+            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+            onChange={(e) => setinfoRecipe({...infoRecipe,image : e.target.files[0]})}
+          />
         </div>
 
         <div>

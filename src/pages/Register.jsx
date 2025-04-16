@@ -8,22 +8,40 @@ const Register = () => {
 
   const {setIsAuthenticated} = useContext(AuthContext)
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [first_Name, setFirstName] = useState('')
+  const [last_Name, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [image, setImage] = useState(null)
 
   const handleRegistration = async (e) => {
     e.preventDefault()
+    // upload de fichier transformer les données de form data: quand on va passer des fichiers comme image
+    const formData = new FormData()
+    formData.append('first_Name', first_Name)
+    formData.append('last_Name', last_Name)
+    formData.append('email', email)
+    formData.append('password', password)
+
+
+
+    if(image){
+      formData.append('image', image)
+    }
 
 
 
     try{
-      const newUser = await axios.post('http://localhost:5000/api/register', {first_Name: firstName, last_Name: lastName, email, password})
+      const newUser = await axios.post('http://localhost:5000/api/register', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+
+      })
       if(newUser.status === 201){
         alert(newUser.data.message)
         setIsAuthenticated(true)
-        navigate('/')
+        navigate(`/user/${newUser.data.userId}`);
       }
     }
     catch(err){
@@ -78,6 +96,13 @@ const Register = () => {
               <div class="mt-2">
                 <input type="password" name="password" id="password" autocomplete="current-password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" 
                 onChange={e => setPassword(e.target.value)}/>
+              </div>
+              <div class="mt-2">
+              <label for="password" class="block text-sm/6 font-medium text-gray-900" >Profile picture</label>
+                <input type="file" name="image"
+                 id="image"  
+                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" 
+                onChange={e => setImage(e.target.files[0])}/>
               </div>
             </div>
       

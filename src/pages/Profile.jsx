@@ -13,13 +13,14 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/profile`, {
-        headers: {
+        headers: {  //POyr recupérer un user par rapport a son ID (c'est fait coté back)
           Authorization: `Bearer ${tokenStorage}`,
         },
       });
-
+        //console.log(response)
       if (response.status === 200) {
         setUserProfile(response.data);
+        //console.log(response.data)
       }
     } catch (err) {
       console.log(err);
