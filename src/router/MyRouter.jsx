@@ -9,6 +9,7 @@ import Profile from "../pages/Profile";
 import ProtectedRoute from "../../utils/ProtectedRoute";
 import Users from "../pages/Users";
 import UserDetails from "../pages/UserDetails";
+import EditProfile from "../pages/EditProfile";
 
 
 const MyRouter = () => {
@@ -27,10 +28,10 @@ const MyRouter = () => {
         <Route path='/profile' element={
           <ProtectedRoute>
             <Profile />
-           {/*  <EditProfile /> */}
           </ProtectedRoute>
         } />
-        
+
+        <Route path='/edit-profile' element={<EditProfile />} />
         <Route path='/recipe/:id' element={<RecipeDetails />} />
         <Route path='/users' element={<Users />} />
         <Route path='/user/:id' element={<UserDetails />} />

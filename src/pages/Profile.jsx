@@ -1,9 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
+import {useNavigate } from "react-router-dom";
 
 
 const Profile = () => {
+  let navigate = useNavigate();
+
+  
   const {tokenStorage, isAuthenticated } = useContext(AuthContext);
   
 
@@ -13,7 +17,7 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/profile`, {
-        headers: {  //POyr recupérer un user par rapport a son ID (c'est fait coté back)
+          headers: {  //Pour recupérer un user par rapport a son ID (c'est fait coté back)
           Authorization: `Bearer ${tokenStorage}`,
         },
       });
@@ -58,6 +62,15 @@ const Profile = () => {
               alt="Profile"
               className="w-48 h-48 object-cover rounded-full border-4 border-indigo-500"
             />
+          </div>
+          <div className="text-center mt-6">
+            <button
+              onClick={() => navigate(`/edit-profile`)}
+
+              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+              >
+              Edit Profile
+            </button>
           </div>
         </>
       )}

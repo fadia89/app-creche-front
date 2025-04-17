@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 
 const RecipeDetails= () => {
@@ -10,16 +12,17 @@ const RecipeDetails= () => {
 
     const [recipe, setRecipe] = useState(null)
     const [loading, setLoading] = useState(true)
+    console.log(recipe)
 
     const  fetchRecipeByID = async () => {
-      if (!id) {
+     /*  if (!id) {
         console.error("L'ID de la recette est manquant !");
-      }
+      } */
         try{
             const response = await axios.get(`http://localhost:5000/api/recipe/${id}`
 );
 
-            console.log (response)
+            //console.log (response)
             if(response.status === 200){
                 setRecipe(response.data)
 
@@ -75,6 +78,17 @@ const RecipeDetails= () => {
                 <span className="font-semibold text-indigo-600">Catégorie :</span>{" "}
                 {recipe.category}
               </p>
+              {recipe.user_Id && (
+              <p>
+                <span className="font-semibold text-indigo-600">Nom: </span>
+                <Link 
+                   to={`/profile`}
+                  className="text-indigo-600 hover:text-indigo-800"
+                >
+                 {recipe.user_Id.first_Name}
+                 </Link>
+              </p>
+              )}
     
               
               

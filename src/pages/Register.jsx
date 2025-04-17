@@ -50,6 +50,9 @@ const Register = () => {
         alert(err.response.data)
       }
     }
+    finally{
+      navigate('/Profile')
+    }
   }
 
     return(
