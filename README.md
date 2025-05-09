@@ -1,12 +1,21 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### npm install @heroicons/react
+Heroicons est une bibliothèque d'icônes SVG open source spécialement conçue pour s'intégrer facilement avec React, Vue, ou directement dans le HTML. Elle a été créée par l'équipe de Tailwind CSS, et elle propose :
 
-## Expanding the ESLint configuration
+Des icônes gratuites au style simple, moderne et clair
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Deux styles : outline (contour fin) et solid (plein)
+
+
+### Documentation
+## Micro-creche: Les petits Oursons
+    https://www.croix-rouge.fr/micro-creche-les-p-tits-oursons
+## creche: Oursons & Cie 
+    https://www.croix-rouge.fr/eaje-collectif-oursons-et-compagnie
+
+
+Responsive : Utilise sm: et lg:
+Impression (print:)
