@@ -1,0 +1,82 @@
+@use "sass:map";
+@use "variables" as *;
+
+// Breakpoints map
+@mixin respond($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Breakpoint non trouvé: `#{$breakpoint}`.";
+  }
+}
+
+// Centrage flex
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mix flex personnalisé
+@mixin flex($justify: flex-start, $align: stretch, $direction: row, $gap: 0) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+// Home Page Section
+@mixin section-style {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 1280px;
+  width: 100%;
+
+  h2,
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+    color: #4b5563;
+    margin-bottom: 1rem;
+
+    li {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@mixin submit-button {
+  background-color: #0891b2;
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+
+  &:hover {
+    background-color: #0e7490;
+  }
+}

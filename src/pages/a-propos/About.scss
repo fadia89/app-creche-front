@@ -1,0 +1,33 @@
+.about-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: #f3f4f6;
+  
+}
+
+.about-section {
+  margin-top: 2.5rem;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-top: 1rem;
+    color: #4b5563;
+    text-align: justify;
+    line-height: 1.6;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}

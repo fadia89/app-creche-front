@@ -10,14 +10,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4.0.17",
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.4",
     "cors": "^2.8.5",
+    "jwt-decode": "^4.0.0",
+    "ra-data-simple-rest": "^5.8.3",
     "react": "^19.0.0",
+    "react-admin": "^5.8.3",
+    "react-calendar": "^5.1.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.4.0"
+    "react-pro-sidebar": "^1.1.0",
+    "react-router-dom": "^7.4.0",
+    "sass": "^1.89.2",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

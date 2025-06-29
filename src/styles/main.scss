@@ -1,0 +1,8 @@
+@use './mixins.scss';
+@use './variables';
+@use '../pages/accueil/Accueil.scss';
+@use '../components/layout/Navbar.scss';
+@use '../pages/a-propos/About.scss';
+@use '../pages/contact/Contact.scss';
+@use '../pages/espace_parent/ParentSpace.scss';
+@use '../pages/inscription/Register.scss'

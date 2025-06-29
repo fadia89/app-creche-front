@@ -1,0 +1,269 @@
+@use "../../styles/mixins.scss" as *;
+
+.bear-container {
+  padding: 1rem;
+  background-color: #f3f4f6;
+
+  section>h3,
+  section>.card>.card-header>h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1280px;
+    margin: auto;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+
+  .card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1 1 100%;
+    max-width: 100%;
+    transition: all 0.3s ease;
+
+    @media (min-width: 640px) {
+      flex: 1 1 calc(33.33% - 1rem);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+
+    }
+
+    .phone {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: #2563eb;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .horaires-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+
+      &.expanded {
+        max-height: 300px;
+      }
+    }
+  }
+
+
+  .card.informations {
+    background-color: #e0e7ff;
+
+    &:hover {
+
+      box-shadow: 0 8px 15px rgba(37, 99, 235, 0.5);
+      transform: translateY(-5px) scale(1.03);
+    }
+
+    .card-header {
+      background-color: #e0e7ff;
+      color: #2563eb;
+
+    }
+
+    a,
+    button {
+      color: #2563eb;
+    }
+  }
+
+
+  .card.vie {
+    background-color: #dcfce7;
+
+    &:hover {
+      box-shadow: 0 8px 15px rgba(21, 128, 61, 0.5);
+      transform: translateY(-5px) scale(1.03);
+    }
+
+    .card-header {
+      background-color: #dcfce7;
+      color: #15803d;
+      
+    }
+  }
+
+
+  .card.horaires {
+  background-color: #fef9c3;
+
+  &:hover {
+    box-shadow: 0 8px 15px rgba(202, 138, 4, 0.5);
+    transform: translateY(-5px) scale(1.03);
+  }
+
+  .card-header {
+    background-color: #fef9c3;
+    color: #ca8a04;
+  }
+
+  button {
+    color: #ca8a04;
+  }
+
+  .horaires-list {
+    max-height: 6em; 
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .horaires-list.expanded {
+    max-height: 300px; /* toute la liste */
+  }
+}
+
+
+  .section {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+
+    max-width: 1280px;
+
+
+    h2 {
+      color: #1f2937;
+    }
+
+    li {
+      color: #4b5563;
+      margin-top: 0.5rem;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      list-style: disc;
+    }
+  }
+
+  .section.promesse {
+    background-color: #ecfdf5;
+    color: #047857;
+
+    h2 {
+      color: #047857;
+    }
+
+    li {
+      color: #065f46;
+    }
+  }
+
+  .section.tarifs {
+    background-color: #fefce8;
+    color: #5C3A21;
+
+
+    h2 {
+      color: #5C3A21;
+
+      p {
+        color: #5C3A21;
+      }
+    }
+  }
+
+  .section.contact {
+    background-color: #eff3ff;
+
+    h2,
+    a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    p {
+      color: #1e3a8a;
+    }
+  }
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+
+    img {
+      width: 150px;
+      object-fit: contain;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .section-Admission {
+    max-width: 1280px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    ul {
+      width: 100%;
+      padding-left: 1.5rem;
+      list-style-type: disc;
+      margin-bottom: 1.5rem;
+      color: #4b5563;
+      font-size: 1rem;
+      line-height: 1.5;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+  }
+
+
+}

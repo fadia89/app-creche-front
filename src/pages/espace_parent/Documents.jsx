@@ -1,0 +1,73 @@
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import axios from "axios";
+
+const Documents = () => {
+  const { tokenStorage, loading, setLoading } = useContext(AuthContext);
+  const [documents, setDocuments] = useState([]);
+
+  const fetchDocuments = async () => {
+    const token = tokenStorage;
+    console.log(token)
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.get("http://localhost:8000/api/my-documents", {
+        headers: { Authorization: `Bearer ${tokenStorage}` },
+      });
+      console.log(response.data)
+
+      if (response.status === 200) {
+        setDocuments(response.data);
+      }
+    } catch {
+      alert("Erreur lors de la récupération des documents.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDocuments();
+  }, []);
+
+  return (
+    <div className="bg-gray-50">
+      <h2 className="text-3xl font-bold mb-6  text-cyan-600 text-center">
+        Liste des documents
+      </h2>
+
+      {loading ? (
+        <p className="text-center text-gray-600">Chargement des documents...</p>
+      ) : documents.length === 0 ? (
+        <p className="text-center text-gray-600">Aucun document trouvé.</p>
+      ) : (
+        <ul className="space-y-4">
+          {documents.map((doc) => (
+            <li key={doc.id} className="p-2">
+              <p className="font-bold text-lg">{doc.file_name}</p>
+              <p className="text-gray-600">Type : {doc.type}</p>
+              <p className="text-gray-600">
+                Ajouté le : {new Date(doc.date_added).toLocaleDateString("fr-FR")}
+              </p>
+              <a
+                href={`http://localhost:8000/${doc.file_path.replace(/\\/g, "/")}`}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-2 px-4 py-2 bg-cyan-600 text-white rounded"
+              >
+                Télécharger
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default Documents;
