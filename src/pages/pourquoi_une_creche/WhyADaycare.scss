@@ -1,0 +1,77 @@
+.whyadaycare-container {
+  max-width: 1140px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    color: #2d2d2d;
+
+    padding-bottom: 2rem;
+  }
+
+  .cards-container {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .carte {
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transform: scale(1.05);
+    background-color: lighten(#fff, 10%);
+    
+    
+  }
+
+  &.indigo {
+    background-color: #e0e7ff;
+  }
+
+  &.rose {
+    background-color: #ffe4e6;
+  }
+
+  &.emerald {
+    background-color: #d1fae5;
+  }
+
+  .carte-titre {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .carte-contenu {
+    font-size: 0.95rem;
+    color: #333;
+    text-align: justify;
+  }
+}
+
+
+  .accompagnement {
+    margin-top: 3rem;
+
+    .accompagnement-titre {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1f1f1f;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #2d2d2d;
+    }
+  }
+}

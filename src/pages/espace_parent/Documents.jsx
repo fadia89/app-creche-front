@@ -8,7 +8,6 @@ const Documents = () => {
 
   const fetchDocuments = async () => {
     const token = tokenStorage;
-    console.log(token)
     if (!token) {
       setLoading(false);
       return;
@@ -18,8 +17,6 @@ const Documents = () => {
       const response = await axios.get("http://localhost:8000/api/my-documents", {
         headers: { Authorization: `Bearer ${tokenStorage}` },
       });
-      console.log(response.data)
-
       if (response.status === 200) {
         setDocuments(response.data);
       }

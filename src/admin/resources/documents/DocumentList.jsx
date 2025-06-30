@@ -12,7 +12,8 @@ const DocumentList = (props) => (
       
       <FunctionField
         label="Parent"
-        render={record => { console.log(record)
+        render={record => { 
+          //console.log(record)
           if (!record.parent || !record.parent.user) return 'Non renseigné';
           return `${record.parent.user.first_name} ${record.parent.user.last_name}`;
         }}
