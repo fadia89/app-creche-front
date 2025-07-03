@@ -1,16 +1,20 @@
-import {
-  Create,
-  SimpleForm,
-  TextInput,
-  DateInput,
-  ReferenceInput,
-  SelectInput,
-  ImageInput,
-  ImageField,
-} from 'react-admin';
+import { Create, SimpleForm, TextInput, DateInput, ReferenceInput, SelectInput, ImageInput, ImageField } from 'react-admin';
 
 const ActivityCreate = props => (
-  <Create {...props} redirect="list">
+  <Create
+    {...props}
+    redirect="list"
+    transform={data => {
+      // Si data.image vient de ImageInput, c'est un objet { rawFile, ... }
+      if (data.image && data.image.rawFile instanceof File) {
+        return {
+          ...data,
+          image: data.image.rawFile,  // on remplace par le File brut
+        };
+      }
+      return data;
+    }}
+  >
     <SimpleForm>
       <TextInput source="name" label="Nom de l'activité" />
 

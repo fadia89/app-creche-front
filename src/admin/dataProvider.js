@@ -23,41 +23,36 @@ const dataProvider = {
   },
 
   create: async (resource, params) => {
-    const isMultipart =
-      (resource === 'activities' && params.data.image?.rawFile instanceof File) ||
-      (resource === 'documents' && params.data.file?.rawFile instanceof File);
+  const isMultipart =
+    resource === 'activities' &&
+    params.data.image instanceof File; // plus besoin de `.rawFile`
 
-    if (isMultipart) {
-      const formData = new FormData();
-      for (const key in params.data) {
-        const value = params.data[key];
-        if (value === undefined || value === null) continue; 
-        if ((key === 'file' || key === 'image') && value.rawFile instanceof File) {
-          formData.append(key, value.rawFile);
-        } else if (typeof value === 'object' && !(value instanceof File)) {
-          // JSONify object (ex: ReferenceArrayInput)
-          formData.append(key, JSON.stringify(value));
-        } else {
-          // nombres, chaînes, dates, etc.
-          formData.append(key, value);
-        }
+  if (isMultipart) {
+    const formData = new FormData();
+    Object.entries(params.data).forEach(([key, value]) => {
+      if (value == null) return;
+      if (key === 'image') {
+        formData.append('image', value);  // value est un File
+      } else {
+        formData.append(key, value);
       }
-      
-      const res = await axios.post(`${apiUrl}/${resource}`, formData, {
-        headers: {
-          ...getAuthHeaders(),
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      return { data: res.data };
-    }
-
-    // Sinon requête JSON classique
-    const res = await axios.post(`${apiUrl}/${resource}`, params.data, {
-      headers: getAuthHeaders(),
+    });
+    const res = await axios.post(`${apiUrl}/${resource}`, formData, {
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'multipart/form-data',
+      },
     });
     return { data: res.data };
-  },
+  }
+
+  // sinon JSON classique…
+  const res = await axios.post(`${apiUrl}/${resource}`, params.data, {
+    headers: getAuthHeaders(),
+  });
+  return { data: res.data };
+},
+
 
   update: async (resource, params) => {
     const { id, data } = params;

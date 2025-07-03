@@ -40,6 +40,7 @@ const Activities = () => {
             [id]: !prev[id],
         }));
     };
+console.log("activities:", activities);
 
 
     return (
