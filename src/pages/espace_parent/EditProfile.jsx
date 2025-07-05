@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   let navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
   const { tokenStorage, isAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [infoUser, setInfoUser] = useState({
@@ -28,7 +30,7 @@ const EditProfile = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8000/api/profile`, formData, {
+      const response = await axios.patch(`${apiUrl}/api/profile`, formData, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
           'Content-Type': 'multipart/form-data'

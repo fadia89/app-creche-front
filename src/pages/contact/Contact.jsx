@@ -12,7 +12,7 @@ const Contact = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -26,7 +26,8 @@ const Contact = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8000/api/contacts", form);
+      const response = await axios.post(`${apiUrl}/api/contacts`, form);
+
       setSuccessMessage("Votre message a bien été envoyé !");
       setErrorMessage("");
       setForm({ name: "", email: "", subject: "", message: "" });

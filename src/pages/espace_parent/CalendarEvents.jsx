@@ -5,6 +5,8 @@ import axios from "axios";
 import "react-calendar/dist/Calendar.css";
 
 const CalendarEvents = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [dateSelected, setDateSelected] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +31,7 @@ const CalendarEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/events`, {
+      const response = await axios.get(`${apiUrl}/api/events`, {
         headers: { Authorization: `Bearer ${tokenStorage}` },
       });
       setEvents(response.data);
@@ -81,7 +83,7 @@ const CalendarEvents = () => {
         <span className="text-cyan-600">
           {dateSelected.toLocaleDateString()}
         </span>
-        
+
       </h3>
 
       {loading ? (

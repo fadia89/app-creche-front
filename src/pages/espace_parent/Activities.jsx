@@ -3,6 +3,9 @@ import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 
 const Activities = () => {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const { tokenStorage, setLoading } = useContext(AuthContext);
     const [activities, setActivities] = useState([]);
     const [expandedDescriptions, setExpandedDescriptions] = useState({}); // keep open/closed state by id
@@ -14,7 +17,7 @@ const Activities = () => {
             return;
         }
         try {
-            const response = await axios.get(`http://localhost:8000/api/my-activities`, {
+            const response = await axios.get(`${apiUrl}/api/my-activities`, {
                 /// Adds an Authorization header to the HTTP request, using the Bearer token scheme.
                 headers: {
                     Authorization: `Bearer ${tokenStorage}`,

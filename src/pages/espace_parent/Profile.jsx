@@ -8,13 +8,15 @@ import Documents from "./Documents";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { tokenStorage } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/profile`, {
+      const response = await axios.get(`${apiUrl}/api/profile`, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
         },

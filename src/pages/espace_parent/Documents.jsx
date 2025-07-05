@@ -6,6 +6,8 @@ const Documents = () => {
   const { tokenStorage, loading, setLoading } = useContext(AuthContext);
   const [documents, setDocuments] = useState([]);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const fetchDocuments = async () => {
     const token = tokenStorage;
     if (!token) {
@@ -14,7 +16,7 @@ const Documents = () => {
     }
 
     try {
-      const response = await axios.get("http://localhost:8000/api/my-documents", {
+      const response = await axios.get(`${apiUrl}/api/my-documents`, {
         headers: { Authorization: `Bearer ${tokenStorage}` },
       });
       if (response.status === 200) {

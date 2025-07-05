@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:8000/api';
+
+const apiUrl_1 = import.meta.env.VITE_API_URL;
+const apiUrl = '${apiUrl}/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
@@ -9,14 +11,14 @@ const getAuthHeaders = () => {
 
 const dataProvider = {
   getList: async resource => {
-    const res = await axios.get(`${apiUrl}/${resource}`, {
+    const res = await axios.get(`${apiUrl_1}/${resource}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data, total: res.data.length };
   },
 
   getOne: async (resource, params) => {
-    const res = await axios.get(`${apiUrl}/${resource}/${params.id}`, {
+    const res = await axios.get(`${apiUrl_1}/${resource}/${params.id}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data };
@@ -37,7 +39,7 @@ const dataProvider = {
         formData.append(key, value);
       }
     });
-    const res = await axios.post(`${apiUrl}/${resource}`, formData, {
+    const res = await axios.post(`${apiUrl_1}/${resource}`, formData, {
       headers: {
         ...getAuthHeaders(),
         'Content-Type': 'multipart/form-data',
@@ -47,7 +49,7 @@ const dataProvider = {
   }
 
   // sinon JSON classique…
-  const res = await axios.post(`${apiUrl}/${resource}`, params.data, {
+  const res = await axios.post(`${apiUrl_1}/${resource}`, params.data, {
     headers: getAuthHeaders(),
   });
   return { data: res.data };
@@ -56,7 +58,7 @@ const dataProvider = {
 
   update: async (resource, params) => {
     const { id, data } = params;
-    const url = `${apiUrl}/${resource}/${id}`;
+    const url = `${apiUrl_1}/${resource}/${id}`;
     const isMultipart = resource === 'activities' && data.image?.rawFile instanceof File;
     if (isMultipart) {
       const formData = new FormData();
@@ -88,7 +90,7 @@ const dataProvider = {
 
   getMany: async (resource, params) => {
     const res = await axios.post(
-      `${apiUrl}/${resource}/many`,
+      `${apiUrl_1}/${resource}/many`,
       { ids: params.ids },
       { headers: getAuthHeaders() }
     );
@@ -96,7 +98,7 @@ const dataProvider = {
   },
 
   delete: async (resource, params) => {
-    const res = await axios.delete(`${apiUrl}/${resource}/${params.id}`, {
+    const res = await axios.delete(`${apiUrl_1}/${resource}/${params.id}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data };

@@ -6,6 +6,8 @@ import { Typography } from "@mui/material";
 const CAPACITY = 30;
 
 const Dashboard = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { tokenStorage } = useContext(AuthContext);
   const [registrationCount, setRegistrationCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ const Dashboard = () => {
    
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/api/registrations", {
+      const response = await axios.get(`${apiUrl}/api/registrations`, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
         },

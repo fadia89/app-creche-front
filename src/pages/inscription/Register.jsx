@@ -6,6 +6,8 @@ import "../../styles/main.scss";
 
 const Register = () => {
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
   const { setIsAuthenticated, setTokenStorage, setLoading } = useContext(AuthContext);
 
   const [first_name, setFirstName] = useState('');
@@ -27,7 +29,7 @@ const Register = () => {
     if (image) formData.append('image', image);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/register', formData, {
+      const response = await axios.post('${apiUrl}/api/register', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
