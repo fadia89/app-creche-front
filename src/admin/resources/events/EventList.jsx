@@ -9,16 +9,23 @@ const EventList = () => {
                 <DateField source="event_date" label="Date de l'événement" />
                 <TextField source="quota" label="Nombre de personnes" />
                 <TextField source="location" label="Localisation" />
+
                 <FunctionField
                     label="Durée"
                     render={record => {
-                        if (!record.duration) return '—';
-                        const totalSeconds = record.duration;
-                        const hours = Math.floor(totalSeconds / 3600);
-                        const minutes = Math.floor((totalSeconds % 3600) / 60);
-                        return `${hours} h ${minutes} min`;
+                        const total = record.duration;
+                        if (typeof total !== 'number') return '—';
+                        // We consider that 'duration' is in number of hours (integer or decimal)
+                        const hours = Math.floor(total);
+                        const minutes = Math.floor((total - hours) * 60);
+                        // If no minutes, only hours are displayed
+                        return minutes === 0
+                            ? `${hours}h`
+                            : `${hours}h${minutes}min`;
                     }}
                 />
+
+
                 <FunctionField
                     label="User"
                     render={record =>

@@ -2,7 +2,7 @@
 import {Create,SimpleForm,TextInput,ReferenceInput,SelectInput,} from 'react-admin';
 
 const ParentCreate = (props) => (
-  <Create title="Ajouter un Parent" {...props}>
+  <Create title="Ajouter un Parent" {...props} redirect="list">
     <SimpleForm>
       <TextInput source="address" label="Adresse" />
       <TextInput source="phone" label="Téléphone" />

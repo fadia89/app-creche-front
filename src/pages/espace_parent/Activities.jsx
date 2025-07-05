@@ -5,7 +5,7 @@ import axios from "axios";
 const Activities = () => {
     const { tokenStorage, setLoading } = useContext(AuthContext);
     const [activities, setActivities] = useState([]);
-    const [expandedDescriptions, setExpandedDescriptions] = useState({}); // garde l'état ouvert/fermé par id
+    const [expandedDescriptions, setExpandedDescriptions] = useState({}); // keep open/closed state by id
 
     const fetchActivities = async () => {
         const token = tokenStorage;
@@ -15,6 +15,7 @@ const Activities = () => {
         }
         try {
             const response = await axios.get(`http://localhost:8000/api/my-activities`, {
+                /// Adds an Authorization header to the HTTP request, using the Bearer token scheme.
                 headers: {
                     Authorization: `Bearer ${tokenStorage}`,
                 },
@@ -40,7 +41,7 @@ const Activities = () => {
             [id]: !prev[id],
         }));
     };
-console.log("activities:", activities);
+
 
 
     return (

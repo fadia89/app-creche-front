@@ -11,7 +11,7 @@ const CalendarEvents = () => {
 
   const { tokenStorage } = useContext(AuthContext);
 
-  // Formater une date au format YYYY-MM-DD
+  //Format a date in YYYY-MM-DD format
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -34,7 +34,7 @@ const CalendarEvents = () => {
       });
       setEvents(response.data);
     } catch (err) {
-      console.error("❌ Erreur lors du chargement des événements :", err);
+      console.error(err);
     } finally {
       setLoading(false);
     }

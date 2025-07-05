@@ -1,93 +1,96 @@
-# React + Vite
+# Crèche App – Interface Front‑end
+
+Une application web développée en React (avec Create React App) qui offre une interface intuitive aux parents et administrateurs pour :
+
+- Visualiser les activités des enfants et leurs profils
+
+- Consulter, ajouter, modifier et supprimer des activités et des événements
+
+- Gérer l’upload et le téléchargement de documents et de photos
+
+- Accéder à leur espace personnel, gérer leur profil et s’authentifier via JWT
+
+## Prérequis
+
+- Node.js installé sur votre machine
+
+## Installation & Démarrage
+
+1. **Cloner le dépôt**  :  
+   Cloner le dépôt et se placer dans le dossier `client` :  
+   
+```git clone https://github.com/fadia89/app-creche-front```
+  
+## Installer les dépendances :
+Dans un terminal, se déplacer dans le dossier client  ```cd creche-app/client``` puis:
+
+```npm install```
+# ou
+
+```yarn install```
+
+## Configurer les variables d’environnement :
+Crée un fichier .env à la racine du client et ajoute :
+
+REACT_APP_API_URL=http://localhost:8000/api
 
 
+## Démarer le serveur
+Depuis le dossier du client:
+```npm run dev```
+Ouvre ton navigateur à l’adresse 'http://localhost:5173/'(ou le port affiché).
 
-### npm install @heroicons/react
-Heroicons est une bibliothèque d'icônes SVG open source spécialement conçue pour s'intégrer facilement avec React, Vue, ou directement dans le HTML. Elle a été créée par l'équipe de Tailwind CSS, et elle propose :
+## Structure du projet
 
-Des icônes gratuites au style simple, moderne et clair
+client/
+├── public/
+│   ├── images/            #  # Images statiques accessibles publiquement.
+│  
+├── src/
+|   |── admin              # Composants et ressources dédiés à l'espac administrateur.
+│   ├── assets/images      # Images utilisées dans l'interface utilisateur.
+│   ├── components/        # Composants réutilisables.
+│   ├── context/           # AuthContext.
+│   ├── pages/             # Pages ( accueil,a-propos,espace_parent,inscription...)
+│   ├── Router             # Configuration du React Router pour la navigation
+│   ├── styles/            # SCSS global.
+│   ├── utils              # Protection des routes
+│   └── main.jsx           # Bootstrap de l’application
+├── .env                   # Variables d’environnement (non versionné via .gitignore)
+├── package.json           # Dépendances, scripts, métadonnées du projet
+└── README.md              # # Documentation du projet front-end
 
-Deux styles : outline (contour fin) et solid (plein)
+🔑 Authentification
+AuthContext gère le token JWT, le stocke dans localStorage et vérifie l’expiration.
 
+Page Login (/login) pour se connecter.
 
-### Documentation
-## Micro-creche: Les petits Oursons
+Page Register (/register) pour s’inscrire.
+
+Routes protégées via un composant <ProtectedRoute>.
+
+## Documentation
+
+# Micro-creche: Les petits Oursons
     https://www.croix-rouge.fr/micro-creche-les-p-tits-oursons
-    https://www.grandlyon.com/creche/creche-les-petits-oursons
-## creche: Oursons & Cie 
+ 
+# creche: Oursons & Cie 
     https://www.croix-rouge.fr/eaje-collectif-oursons-et-compagnie
 
+# React : 
+https://reactjs.org/
 
-Responsive : Utilise sm: et lg:
-Impression (print:)
+# React Router : 
+https://reactrouter.com/
 
-| Pratique                                | Pourquoi                                 |
-| --------------------------------------- | ---------------------------------------- |
-| `<span role="img" aria-label="...">`    | Pour décrire l’emoji aux lecteurs        |
-| `{" "}`                                 | Pour gérer proprement les espaces en JSX |
-| Éviter uniquement des emojis décoratifs | Ils peuvent être ignorés sinon           |
+# Axios : 
+https://axios-http.com/
 
-# React admin npm install react-admin ra-data-simple-rest
-
-
-## props: react admin
-Dans React-Admin, les composants comme List, Edit, Create reçoivent automatiquement des props (propriétés) de la part du framework. Ces props contiennent des infos importantes comme :
-
-les données (records),
-
-les fonctions de pagination,
-
-les filtres,
-
-les permissions d’accès,
-
--> Si tu oublies de passer ...props, ça casse la communication entre React-Admin et ton composant, donc rien ne s’affiche, ou ça peut causer des bugs.
-
-### format={v => v?.toLowerCase?.()}  parse={v => v.toLowerCase()}
-format = transforme la valeur affichée dans le formulaire.
-
-parse = transforme la valeur envoyée au backend.
-
-###  const record = useRecordContext() : 
-est un hook fourni par React Admin qui récupère l’objet de données actuel (appelé record) pour le formulaire ou la page d’édition en cours.
-record contient les données de table que tu es en train de modifier
-
-### slug {/* Ce que on utilise dans L'URL /accueil /a-propos  /pourqoui une crêche? */}
-
-# Responsive
- partir de md (écran ≥768px) :
-
-flex : disposition horizontale des liens
-
-items-center : verticalement centrés
-
-space-x-6 : espace horizontal entre les éléments
+# React‑Admin  :
+https://marmelab.com/react-admin
 
 
-    absolute md:static top-full left-0 w-full md:w-auto
-Sur mobile :
 
-absolute positionne le menu par rapport au parent
 
-top-full : place le menu juste sous la navbar
 
-left-0 w-full : prend toute la largeur
 
-Sur desktop (md) :
-
-static : position normale
-
-w-auto : prend juste la largeur du contenu
-
-| Mobile (par défaut) | Desktop (`md:`)  |
-| ------------------- | ---------------- |
-| `hidden` ou `block` | `flex`           |
-| `absolute`          | `static`         |
-| `w-full`            | `w-auto`         |
-| `bg-white`          | `bg-transparent` |
-
-| Écran      | `menuOpen`  | Résultat d’affichage                  |
-| ---------- | ----------- | ------------------------------------- |
-| 📱 Mobile  | `false`     | Menu **caché** (`hidden`)             |
-| 📱 Mobile  | `true`      | Menu **affiché** (`block`)            |
-| 💻 Desktop | Peu importe | Menu **toujours affiché** (`md:flex`) |

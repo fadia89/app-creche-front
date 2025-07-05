@@ -9,6 +9,7 @@ const EventEdit = () => {
         <TextInput source="description" label="Description" multiline />
         <TextInput source="quota" label="nombre d'inscrit" />
         <DateInput source="event_date" label="Date de l'evenement" />
+        <TextInput source="location" label="Lieu" />
         <NumberInput source="duration" label="Durée" />
         <ReferenceArrayInput source="user_ids" reference="users" label="Utilisateurs inscrits">
           <AutocompleteArrayInput optionText={record => `${record.first_name} ${record.last_name}`} />

@@ -9,10 +9,10 @@
         font-size: 1.125rem;
         font-weight: 100;
         background-color: transparent;
-        
+
 
         &:hover {
-            background-color: #c7d2fe; 
+            background-color: #c7d2fe;
         }
     }
 
@@ -21,12 +21,12 @@
         left: 0;
         margin-top: 0.2rem;
         background-color: white;
-        color: black; 
+        color: black;
         border-radius: 0.375rem;
-        width: 16rem; 
+        width: 16rem;
         z-index: 50;
         padding: 0;
-       
+
 
         li a {
             display: block;
@@ -80,21 +80,27 @@ nav.main-nav {
             position: absolute;
             top: 110%;
             left: 0;
-            width: 100%;
+            width: auto;
             background: rgba(255, 255, 255, 0.932);
             color: black;
             padding: 1rem;
             z-index: 50;
 
+
+
             @include respond(md) {
                 display: flex !important;
                 align-items: center;
                 position: static;
-                width: auto;
+                width: 100%;
                 background: transparent;
                 padding: 0;
                 justify-content: center;
-                gap: 3rem;
+                gap: 2rem;
+                flex-wrap: wrap; //  Allows line break
+                gap: 1rem 1rem; 
+                row-gap: 1rem; 
+
 
             }
 
@@ -120,13 +126,14 @@ nav.main-nav {
                 }
             }
 
-            li.menu-mobile{
-                padding-left : 2rem;
-                @media screen and (min-width:767px){
-                    display : none;
+            li.menu-mobile {
+                padding-left: 2rem;
+
+                @media screen and (min-width:767px) {
+                    display: none;
                 }
             }
-            
+
         }
     }
 }

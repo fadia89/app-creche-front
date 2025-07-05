@@ -21,6 +21,7 @@ const Schedules = () => {
                 <h3>Horaires</h3>
             </div>
             <p><strong>Heures d'ouverture :</strong></p>
+            {/* It displays either all times or only the first 3, depending on the showAll flag. */}
             <div className={`horaires-list ${showAll ? 'expanded' : ''}`}>
                 {(showAll ? horaires : horaires.slice(0, 3)).map((h, i) => (
                     <p key={i}>{h}</p>
