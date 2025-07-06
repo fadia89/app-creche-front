@@ -11,6 +11,7 @@ import  {jwtDecode } from 'jwt-decode';
 export const AuthContext = createContext()
 
 export const AuthController = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   let navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -64,7 +65,7 @@ const handleLogin = async (e, email, password) => {
   e.preventDefault();
 
   try {
-    const response = await axios.post('http://localhost:8000/api/login', { email, password });
+    const response = await axios.post('${apiUrl}', { email, password });
 
     if (response.status === 200) {
       const token = response.data.token;
