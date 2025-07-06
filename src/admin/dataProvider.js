@@ -49,7 +49,7 @@ const dataProvider = {
   }
 
   // sinon JSON classique…
-  const res = await axios.post(`${apiUrl_1}/${resource}`, params.data, {
+  const res = await axios.post(`${apiUrl}/api/${resource}`, params.data, {
     headers: getAuthHeaders(),
   });
   return { data: res.data };
@@ -58,7 +58,7 @@ const dataProvider = {
 
   update: async (resource, params) => {
     const { id, data } = params;
-    const url = `${apiUrl_1}/${resource}/${id}`;
+    const url = `${apiUrl}/api/${resource}/${id}`;
     const isMultipart = resource === 'activities' && data.image?.rawFile instanceof File;
     if (isMultipart) {
       const formData = new FormData();
