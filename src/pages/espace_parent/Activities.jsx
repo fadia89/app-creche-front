@@ -65,7 +65,7 @@ const Activities = () => {
                                 className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center h-full transition-transform duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border hover:border-cyan-300"
                             >
                                 <img
-                                    src={`http://localhost:8000/images/${activity.image}`}
+                                    src={`${apiUrl}/images/${activity.image}`}
                                     alt={activity.name}
                                     className="w-48 h-32 object-cover rounded mb-4"
                                 />
@@ -94,7 +94,7 @@ const Activities = () => {
 
                                         {activity.image && (
                                             <a
-                                                href={`http://localhost:8000/download/images/${activity.image}`}
+                                                href={`${apiUrl}/download/images/${activity.image}`}
                                                 download
                                                 className="inline-block mt-2 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 text-sm"
                                             >

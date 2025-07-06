@@ -65,7 +65,7 @@ const handleLogin = async (e, email, password) => {
   e.preventDefault();
 
   try {
-    const response = await axios.post('${apiUrl}', { email, password });
+    const response = await axios.post('${apiUrl}/api/login', { email, password });
 
     if (response.status === 200) {
       const token = response.data.token;
