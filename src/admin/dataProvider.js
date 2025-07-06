@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const apiUrl_1 = import.meta.env.VITE_API_URL;
-const apiUrl = '${apiUrl}/api';
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
@@ -11,14 +11,14 @@ const getAuthHeaders = () => {
 
 const dataProvider = {
   getList: async resource => {
-    const res = await axios.get(`${apiUrl_1}/${resource}`, {
+    const res = await axios.get(`${apiUrl}/api/${resource}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data, total: res.data.length };
   },
 
   getOne: async (resource, params) => {
-    const res = await axios.get(`${apiUrl_1}/${resource}/${params.id}`, {
+    const res = await axios.get(`${apiUrl}/api/${resource}/${params.id}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data };
@@ -39,7 +39,7 @@ const dataProvider = {
         formData.append(key, value);
       }
     });
-    const res = await axios.post(`${apiUrl_1}/${resource}`, formData, {
+    const res = await axios.post(`${apiUrl}/api/${resource}`, formData, {
       headers: {
         ...getAuthHeaders(),
         'Content-Type': 'multipart/form-data',
@@ -90,7 +90,7 @@ const dataProvider = {
 
   getMany: async (resource, params) => {
     const res = await axios.post(
-      `${apiUrl_1}/${resource}/many`,
+      `${apiUrl}/api/${resource}/many`,
       { ids: params.ids },
       { headers: getAuthHeaders() }
     );
@@ -98,7 +98,7 @@ const dataProvider = {
   },
 
   delete: async (resource, params) => {
-    const res = await axios.delete(`${apiUrl_1}/${resource}/${params.id}`, {
+    const res = await axios.delete(`${apiUrl}/api/${resource}/${params.id}`, {
       headers: getAuthHeaders(),
     });
     return { data: res.data };

@@ -13,6 +13,7 @@ const Profile = () => {
   const { tokenStorage } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
+  const[profileCompleted, setprofileCompleted] =useState(false)
 
   const fetchUserProfile = async () => {
     try {
