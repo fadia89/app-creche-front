@@ -1,8 +1,9 @@
 import { jwtDecode } from 'jwt-decode';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const authProvider = {
   login: async ({ username, password }) => {
-    const response = await fetch('http://localhost:8000/api/login', {
+    const response = await fetch(`${apiUrl}/api/login`, {
       method: 'POST',
       body: JSON.stringify({ email: username, password }),
       headers: { 'Content-Type': 'application/json' },
