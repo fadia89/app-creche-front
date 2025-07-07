@@ -26,8 +26,7 @@ const Profile = () => {
       if (response.status === 200) {
         const data = response.data;
         setUserProfile(data);
-        console.log("Profil utilisateur récupéré :", data);
-        setIsParent(!!data.parent); // ✅ Vérifie si la clé `parent` existe
+        setIsParent(!!data.parent); // Check if the `parent` key exists
       }
     } catch (err) {
       console.error(err);
