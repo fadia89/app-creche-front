@@ -3,43 +3,44 @@ import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 
 const Documents = () => {
+  let navigate = useNavigate();
   const { tokenStorage, loading, setLoading } = useContext(AuthContext);
   const [documents, setDocuments] = useState([]);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchDocuments = async () => {
-  const token = tokenStorage;
-  if (!token) {
-    setLoading(false);
-    return;
-  }
+    const token = tokenStorage;
+    if (!token) {
+      setLoading(false);
+      return;
+    }
 
-  try {
-    const response = await axios.get(`${apiUrl}/api/my-documents`, {
-      headers: { Authorization: `Bearer ${tokenStorage}` },
-    });
-    if (response.status === 200) {
-      setDocuments(response.data);
-    }
-  } catch (error) {
-    if (error.response) {
-      if (
-        error.response.status === 404 &&
-        error.response.data.message === "Parent not found for this user"
-      ) {
-        // Redirection vers une autre page
-        navigate("/no-documents");
-      } else {
-        alert(`Erreur: ${error.response.data.message || "Erreur inconnue"}`);
+    try {
+      const response = await axios.get(`${apiUrl}/api/my-documents`, {
+        headers: { Authorization: `Bearer ${tokenStorage}` },
+      });
+      if (response.status === 200) {
+        setDocuments(response.data);
       }
-    } else {
-      alert("Erreur réseau, veuillez réessayer.");
+    } catch (error) {
+      if (error.response) {
+        if (
+          error.response.status === 404 &&
+          error.response.data.message === "Parent not found for this user"
+        ) {
+          // Redirection vers une autre page
+          navigate("/no-documents");
+        } else {
+          alert(`Erreur: ${error.response.data.message || "Erreur inconnue"}`);
+        }
+      } else {
+        alert("Erreur réseau, veuillez réessayer.");
+      }
+    } finally {
+      setLoading(false);
     }
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
 
