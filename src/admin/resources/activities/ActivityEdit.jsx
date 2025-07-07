@@ -1,6 +1,6 @@
 import { Edit, SimpleForm, TextInput, DateInput, ReferenceInput, SelectInput, ImageInput, ImageField, useRecordContext } from 'react-admin';
-
-const imageUrlPrefix = 'http://localhost:8000/uploads/';
+const apiUrl = import.meta.env.VITE_API_URL;
+const imageUrlPrefix = `${apiUrl}/uploads/`;
 
 const CustomImageField = ({ source, label }) => {
   const record = useRecordContext();

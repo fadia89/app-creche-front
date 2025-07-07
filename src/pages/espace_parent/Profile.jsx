@@ -59,7 +59,7 @@ const Profile = () => {
 
           <div className="flex justify-center mb-6">
             <img
-              src={`http://localhost:8000${userProfile.image}`}
+              src={`${apiUrl}${userProfile.image}`}
               alt="Photo de profil"
               className="w-40 h-40 rounded-full object-cover border-4 border-cyan-700 shadow-md"
             />
