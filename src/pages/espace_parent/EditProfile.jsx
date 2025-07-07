@@ -30,7 +30,7 @@ const EditProfile = () => {
     }
 
     try {
-      const response = await axios.patch(`${apiUrl}/api/profile`, formData, {
+      const response = await axios.patch(`${apiUrl}/api/edit-profile`, formData, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
           'Content-Type': 'multipart/form-data'
