@@ -13,12 +13,12 @@ const EventList = () => {
                 <FunctionField
                     label="Durée"
                     render={record => {
-                        const total = record.duration;
-                        if (typeof total !== 'number') return '—';
-                        // We consider that 'duration' is in number of hours (integer or decimal)
-                        const hours = Math.floor(total);
-                        const minutes = Math.floor((total - hours) * 60);
-                        // If no minutes, only hours are displayed
+                        const totalSeconds = record.duration;
+                        if (typeof totalSeconds !== 'number') return '—';
+
+                        const hours = Math.floor(totalSeconds / 3600);
+                        const minutes = Math.floor((totalSeconds % 3600) / 60);
+
                         return minutes === 0
                             ? `${hours}h`
                             : `${hours}h${minutes}min`;
