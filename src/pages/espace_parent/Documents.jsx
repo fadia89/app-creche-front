@@ -1,48 +1,45 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Documents = () => {
-  let navigate = useNavigate();
   const { tokenStorage, loading, setLoading } = useContext(AuthContext);
   const [documents, setDocuments] = useState([]);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchDocuments = async () => {
-    const token = tokenStorage;
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+  const token = tokenStorage;
+  if (!token) {
+    setLoading(false);
+    return;
+  }
 
-    try {
-      const response = await axios.get(`${apiUrl}/api/my-documents`, {
-        headers: { Authorization: `Bearer ${tokenStorage}` },
-      });
-      if (response.status === 200) {
-        setDocuments(response.data);
-      }
-    } catch (error) {
-      if (error.response) {
-        if (
-          error.response.status === 404 &&
-          error.response.data.message === "Parent not found for this user"
-        ) {
-          // Redirection vers une autre page
-          navigate("/no-documents");
-        } else {
-          alert(`Erreur: ${error.response.data.message || "Erreur inconnue"}`);
-        }
+  try {
+    const response = await axios.get(`${apiUrl}/api/my-documents`, {
+      headers: { Authorization: `Bearer ${tokenStorage}` },
+    });
+    if (response.status === 200) {
+      setDocuments(response.data);
+    }
+  } catch (error) {
+    if (error.response) {
+      // La requête a répondu avec un code d'erreur
+      if (error.response.status === 404 && error.response.data.message === "Parent not found for this user") {
+        // Par exemple, afficher un message spécifique
+        alert("Vous n'avez pas encore de documents associés, veuillez contacter l'administrateur.");
+        
       } else {
-        alert("Erreur réseau, veuillez réessayer.");
+        alert(`Erreur: ${error.response.data.message || "Impossible de récupérer les documents."}`);
       }
-    } finally {
-      setLoading(false);
+    } else {
+      // Problème réseau ou autre
+      alert("Erreur réseau, veuillez réessayer.");
     }
-  };
-
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   useEffect(() => {

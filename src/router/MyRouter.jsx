@@ -21,7 +21,7 @@ import Cookies from "../components/layout/Cookies.jsx";
 import Documents from "../pages/espace_parent/Documents.jsx";
 import ProtectedRoute from "../utils/ProtectedRoute.jsx"
 import AppAdmin from "../admin/AppAdmin.jsx";
-import NoDocuments from "../pages/espace_parent/NoDocuments.jsx";
+
 
 const MyRouter = () => {
   return (
@@ -44,7 +44,6 @@ const MyRouter = () => {
         <Route path="/pourquoi-une-creche" element={<PourquoiUneCreche />} />
         <Route path="/activities" element={<Activities />} />
         <Route path="/documents" element={<Documents />} />
-         <Route path="/no-documents" element={<NoDocuments />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<h1>Page introuvable</h1>} />
 
