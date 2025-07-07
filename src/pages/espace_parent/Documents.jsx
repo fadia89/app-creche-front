@@ -53,7 +53,7 @@ const Documents = () => {
                 Ajouté le : {new Date(doc.date_added).toLocaleDateString("fr-FR")}
               </p>
               <a
-                href={`http://localhost:8000/${doc.file_path.replace(/\\/g, "/")}`}
+                href={`${apiUrl}/${doc.file_path.replace(/\\/g, "/")}`}
                 download
                 target="_blank"
                 rel="noopener noreferrer"
