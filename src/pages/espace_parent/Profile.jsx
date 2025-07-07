@@ -26,7 +26,8 @@ const Profile = () => {
       if (response.status === 200) {
         const data = response.data;
         setUserProfile(data);
-        setIsParent(!!data.parent); // ✅ Vérifie si la clé `parent` existe
+        console.log("le parent est", isParent)
+        setIsParent(!!data.IsParent); // ✅ Vérifie si la clé `parent` existe
       }
     } catch (err) {
       console.error(err);
