@@ -24,22 +24,23 @@ const Documents = () => {
     }
   } catch (error) {
     if (error.response) {
-      // La requête a répondu avec un code d'erreur
-      if (error.response.status === 404 && error.response.data.message === "Parent not found for this user") {
-        // Par exemple, afficher un message spécifique
-        alert("Vous n'avez pas encore de documents associés, veuillez contacter l'administrateur.");
-        
+      if (
+        error.response.status === 404 &&
+        error.response.data.message === "Parent not found for this user"
+      ) {
+        // Redirection vers une autre page
+        navigate("/no-documents");
       } else {
-        alert(`Erreur: ${error.response.data.message || "Impossible de récupérer les documents."}`);
+        alert(`Erreur: ${error.response.data.message || "Erreur inconnue"}`);
       }
     } else {
-      // Problème réseau ou autre
       alert("Erreur réseau, veuillez réessayer.");
     }
   } finally {
     setLoading(false);
   }
 };
+
 
 
   useEffect(() => {
