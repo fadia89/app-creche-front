@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Documents = () => {
   let navigate = useNavigate();
