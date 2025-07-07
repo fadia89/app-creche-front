@@ -48,7 +48,7 @@ const EditProfile = () => {
 
   const fetchUserEditProfile = async () => {
     try {
-      const response = await axios.get(`${apiUrl}`, {
+      const response = await axios.get(`${apiUrl}/api/profile`, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
         },
