@@ -13,7 +13,7 @@ const Profile = () => {
   const { tokenStorage } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
-  const[profileCompleted, setprofileCompleted] =useState(false)
+  const [isParent, setIsParent] = useState(false); // ✅ initialisé à false
 
   const fetchUserProfile = async () => {
     try {
@@ -22,24 +22,27 @@ const Profile = () => {
           Authorization: `Bearer ${tokenStorage}`,
         },
       });
+
       if (response.status === 200) {
-        setUserProfile(response.data);
+        const data = response.data;
+        setUserProfile(data);
+        setIsParent(!!data.parent); // ✅ Vérifie si la clé `parent` existe
       }
     } catch (err) {
       console.error(err);
-      alert("Error retrieving user profile.");
+      alert("Erreur lors de la récupération du profil.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-      if (tokenStorage) {
-    fetchUserProfile(tokenStorage);
-  } else {
-    setLoading(false);
-  }
-}, [tokenStorage]);
+    if (tokenStorage) {
+      fetchUserProfile();
+    } else {
+      setLoading(false);
+    }
+  }, [tokenStorage]);
 
   if (loading) {
     return (
@@ -76,9 +79,13 @@ const Profile = () => {
 
       <div className="space-y-16">
         <CalendarEvents />
-        <Activities />
-        <Documents />
-       
+        
+        {isParent && (
+          <>
+            <Activities />
+            <Documents />
+          </>
+        )}
       </div>
     </div>
   );
