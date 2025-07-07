@@ -25,36 +25,47 @@ const dataProvider = {
   },
 
   create: async (resource, params) => {
-  const isMultipart =
-    resource === 'activities' &&
-    params.data.image instanceof File; // plus besoin de `.rawFile`
+    const isActivityWithImage =
+      resource === 'activities' && params.data.image instanceof File;
 
-  if (isMultipart) {
-    const formData = new FormData();
-    Object.entries(params.data).forEach(([key, value]) => {
-      if (value == null) return;
-      if (key === 'image') {
-        formData.append('image', value);  // value est un File
-      } else {
-        formData.append(key, value);
-      }
+    const isDocumentWithFile =
+      resource === 'documents' && params.data.file?.rawFile instanceof File;
+
+    if (isActivityWithImage || isDocumentWithFile) {
+      const formData = new FormData();
+
+      Object.entries(params.data).forEach(([key, value]) => {
+        if (value == null) return;
+
+        // pour les documents : on veut le fichier brut
+        if (key === 'file' && value.rawFile instanceof File) {
+          formData.append('file', value.rawFile);
+        }
+        // pour les activités : on veut image
+        else if (key === 'image' && value instanceof File) {
+          formData.append('image', value);
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      const res = await axios.post(`${apiUrl}/api/${resource}`, formData, {
+        headers: {
+          ...getAuthHeaders(),
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      return { data: res.data };
+    }
+
+    // fallback: default JSON POST
+    const res = await axios.post(`${apiUrl}/api/${resource}`, params.data, {
+      headers: getAuthHeaders(),
     });
-    const res = await axios.post(`${apiUrl}/api/${resource}`, formData, {
-      headers: {
-        ...getAuthHeaders(),
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+
     return { data: res.data };
-  }
-
-  // sinon JSON classique…
-  const res = await axios.post(`${apiUrl}/api/${resource}`, params.data, {
-    headers: getAuthHeaders(),
-  });
-  return { data: res.data };
-},
-
+  },
 
   update: async (resource, params) => {
     const { id, data } = params;
