@@ -9,25 +9,38 @@ const Documents = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchDocuments = async () => {
-    const token = tokenStorage;
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+  const token = tokenStorage;
+  if (!token) {
+    setLoading(false);
+    return;
+  }
 
-    try {
-      const response = await axios.get(`${apiUrl}/api/my-documents`, {
-        headers: { Authorization: `Bearer ${tokenStorage}` },
-      });
-      if (response.status === 200) {
-        setDocuments(response.data);
-      }
-    } catch {
-      alert("Erreur lors de la récupération des documents.");
-    } finally {
-      setLoading(false);
+  try {
+    const response = await axios.get(`${apiUrl}/api/my-documents`, {
+      headers: { Authorization: `Bearer ${tokenStorage}` },
+    });
+    if (response.status === 200) {
+      setDocuments(response.data);
     }
-  };
+  } catch (error) {
+    if (error.response) {
+      // La requête a répondu avec un code d'erreur
+      if (error.response.status === 404 && error.response.data.message === "Parent not found for this user") {
+        // Par exemple, afficher un message spécifique
+        alert("Vous n'avez pas encore de documents associés, veuillez contacter l'administrateur.");
+        
+      } else {
+        alert(`Erreur: ${error.response.data.message || "Impossible de récupérer les documents."}`);
+      }
+    } else {
+      // Problème réseau ou autre
+      alert("Erreur réseau, veuillez réessayer.");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchDocuments();
