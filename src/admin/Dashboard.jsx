@@ -13,8 +13,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // This state is just used to trigger a refresh in useEffect
+  const [refreshFlag, setRefreshFlag] = useState(false);
+
   const fetchRegistration = async () => {
-   
+
     try {
       setLoading(true);
       const response = await axios.get(`${apiUrl}/api/registrations`, {
@@ -46,7 +49,7 @@ const Dashboard = () => {
       setError("Token manquant, veuillez vous connecter.");
       setLoading(false);
     }
-  }, [tokenStorage]);
+  }, [tokenStorage,setRefreshFlag]);
 
   const placesDisponibles = CAPACITY - registrationCount;
 
@@ -59,6 +62,15 @@ const Dashboard = () => {
       <Typography variant="h4" gutterBottom>
         Tableau de bord
       </Typography>
+      {/*Button to manually trigger the refresh of registrations */}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setRefreshFlag((prev) => !prev)} // Invert the value of the flag to trigger useEffect
+        style={{ marginBottom: 20 }}
+      >
+        Rafraîchir les inscriptions
+      </Button>
 
       {error && <Typography color="error">{error}</Typography>}
 
