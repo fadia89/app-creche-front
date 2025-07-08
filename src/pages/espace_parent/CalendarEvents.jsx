@@ -25,11 +25,8 @@ const CalendarEvents = () => {
     if (!duration) return "Durée non spécifiée";
     const hours = Math.floor(duration);
     const minutes = Math.floor((duration - hours) * 60);
-    return minutes === 0
-      ? `${hours}h`
-      : `${hours}h${minutes}min`;
+    return minutes === 0 ? `${hours}h` : `${hours}h${minutes}min`;
   };
-
 
   const fetchEvents = async () => {
     try {
