@@ -16,7 +16,8 @@ const EditProfile = () => {
     password: '',
     image: '',
     address: '',
-    phone: ''
+    phone: '',
+     isParent: false
   });
 
 
@@ -62,7 +63,8 @@ const EditProfile = () => {
         email: response.data.email,
         image: response.data.image,
         address: response.data.address,
-        phone: response.data.phone
+        phone: response.data.phone,
+         isParent: response.data.isParent 
       });
     } catch (err) {
       console.log(err);
@@ -141,6 +143,7 @@ const EditProfile = () => {
               placeholder="Téléphone"
               value={infoUser.phone}
               onChange={e => setInfoUser({ ...infoUser, phone: e.target.value })}
+              disabled={!infoUser.isParent}
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -153,6 +156,7 @@ const EditProfile = () => {
               placeholder="Adresse"
               value={infoUser.address}
               onChange={e => setInfoUser({ ...infoUser, address: e.target.value })}
+              disabled={!infoUser.isParent}
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
