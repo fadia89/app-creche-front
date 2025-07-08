@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   let navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
-  
+
   const { tokenStorage, isAuthenticated } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [infoUser, setInfoUser] = useState({
@@ -16,7 +16,8 @@ const EditProfile = () => {
     password: '',
     image: '',
     address: '',
-    phone: ''
+    phone: '',
+    isParent: false
   });
 
 
@@ -30,7 +31,7 @@ const EditProfile = () => {
     }
 
     try {
-      const response = await axios.patch(`${apiUrl}/api/edit-profile`, formData, {
+      const response = await axios.patch(`${apiUrl}/api/profile`, formData, {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
           'Content-Type': 'multipart/form-data'
@@ -62,7 +63,8 @@ const EditProfile = () => {
         email: response.data.email,
         image: response.data.image,
         address: response.data.address,
-        phone: response.data.phone
+        phone: response.data.phone,
+        isParent: response.data.isParent
       });
     } catch (err) {
       console.log(err);
@@ -134,30 +136,33 @@ const EditProfile = () => {
           </div>
 
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
-            <input
-              type="text"
-              placeholder="Téléphone"
-              value={infoUser.phone}
-              onChange={e => setInfoUser({ ...infoUser, phone: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          {infoUser.isParent && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+              <input
+                type="text"
+                placeholder="Téléphone"
+                value={infoUser.phone}
+                onChange={e => setInfoUser({ ...infoUser, phone: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          )}
 
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
-            <input
-              type="text"
-              placeholder="Adresse"
-              value={infoUser.address}
-              onChange={e => setInfoUser({ ...infoUser, address: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          {infoUser.isParent && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+              <input
+                type="text"
+                placeholder="Adresse"
+                value={infoUser.address}
+                onChange={e => setInfoUser({ ...infoUser, address: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          )}
 
-          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Image de profil</label>
             <input
@@ -170,7 +175,7 @@ const EditProfile = () => {
             />
           </div>
 
-          
+
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 transition"

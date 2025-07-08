@@ -13,7 +13,7 @@ const Profile = () => {
   const { tokenStorage } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
-  const [isParent, setIsParent] = useState(false); // ✅ initialisé à false
+  const [isParent, setIsParent] = useState(false); 
 
   const fetchUserProfile = async () => {
     try {
@@ -26,8 +26,7 @@ const Profile = () => {
       if (response.status === 200) {
         const data = response.data;
         setUserProfile(data);
-        console.log("le parent est", isParent)
-        setIsParent(!!data.IsParent); // ✅ Vérifie si la clé `parent` existe
+        setIsParent(!!data.isParentarent); // ✅ Vérifie si la clé `parent` existe
       }
     } catch (err) {
       console.error(err);

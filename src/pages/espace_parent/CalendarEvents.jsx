@@ -21,13 +21,15 @@ const CalendarEvents = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const formatDuration = (seconds) => {
-    if (!seconds) return "Durée non spécifiée";
-    const totalMinutes = Math.floor(seconds / 60);
-    const h = Math.floor(totalMinutes / 60);
-    const m = totalMinutes % 60;
-    return `${h}h${m > 0 ? ` ${m}min` : ""}`;
+  const formatDuration = (duration) => {
+    if (!duration) return "Durée non spécifiée";
+    const hours = Math.floor(duration);
+    const minutes = Math.floor((duration - hours) * 60);
+    return minutes === 0
+      ? `${hours}h`
+      : `${hours}h${minutes}min`;
   };
+
 
   const fetchEvents = async () => {
     try {
